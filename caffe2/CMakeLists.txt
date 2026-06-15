@@ -1714,6 +1714,12 @@ if(APPLE AND USE_PYTORCH_METAL)
 endif()
 
 
+# Ensure vendored flatbuffers headers (v24) take precedence over any SDK-staged
+# headers (v25) that leak in via transitive PUBLIC includes (e.g. from gloo/HIP).
+# BEFORE on a real target prepends to its include list; on an INTERFACE target it
+# only reorders the target's own property and has no effect on consumers.
+target_include_directories(torch_cpu BEFORE PRIVATE
+  ${PROJECT_SOURCE_DIR}/third_party/flatbuffers/include)
 target_link_libraries(torch_cpu PRIVATE flatbuffers)
 
 # Note [Global dependencies]

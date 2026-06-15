@@ -7,4 +7,4 @@ target_sources(
   flatbuffers
   INTERFACE ${FlatBuffers_Library_SRCS}
 )
-target_include_directories(flatbuffers BEFORE INTERFACE ${FlatBuffers_Include})
+target_include_directories(flatbuffers INTERFACE ${FlatBuffers_Include})
